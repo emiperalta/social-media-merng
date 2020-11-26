@@ -45,17 +45,16 @@ module.exports = {
                 throw new Error(err);
             }
         },
-        deletePost: async (parent, { postId }, context) => {
+        deletePost: async (parent, { postId }, context, info) => {
             try {
                 const user = checkAuth(context);
                 const post = await Post.findById(postId);
 
+                //if the user who logged in is not the user who created the post, he is not allowed to delete the post
                 if (user.username === post.username) {
                     await Post.findByIdAndDelete(postId);
                     return 'Post deleted successfully';
-                } else {
-                    throw new AuthenticationError('Action not allowed');
-                }
+                } else throw new AuthenticationError('Action not allowed');
             } catch (err) {
                 throw new Error(err);
             }
