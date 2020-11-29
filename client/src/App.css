@@ -2,4 +2,29 @@
 
 * {
     font-family: 'Inter', sans-serif;
+    font-size: 17px;
+    box-sizing: border-box;
+}
+
+.page-title,
+.register-title {
+    display: block !important;
+    text-align: center;
+    font-size: rem;
+    margin: 10px 0;
+}
+
+.register-title {
+    margin: 25px 0;
+}
+
+.form-container {
+    width: 100%;
+    margin: 0 auto;
+}
+
+@media screen and (min-width: 500px) {
+    .form-container {
+        width: 465px;
+    }
 }
