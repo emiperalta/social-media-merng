@@ -20,3 +20,63 @@ export const GET_POSTS_QUERY = gql`
         }
     }
 `;
+
+export const LOGIN_USER = gql`
+    mutation login($username: String!, $password: String!) {
+        login(username: $username, password: $password) {
+            id
+            username
+            email
+            createdAt
+            token
+        }
+    }
+`;
+
+export const REGISTER_USER = gql`
+    mutation register(
+        $username: String!
+        $email: String!
+        $password: String!
+        $confirmPassword: String!
+    ) {
+        register(
+            registerInput: {
+                username: $username
+                email: $email
+                password: $password
+                confirmPassword: $confirmPassword
+            }
+        ) {
+            id
+            username
+            email
+            createdAt
+            token
+        }
+    }
+`;
+
+export const CREATE_POST = gql`
+    mutation createPost($body: String!) {
+        createPost(body: $body) {
+            id
+            body
+            username
+            createdAt
+            likes {
+                id
+                username
+                createdAt
+            }
+            likesCount
+            comments {
+                id
+                body
+                username
+                createdAt
+            }
+            commentsCount
+        }
+    }
+`;

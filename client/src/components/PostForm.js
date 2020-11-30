@@ -1,10 +1,9 @@
 import React from 'react';
-import gql from 'graphql-tag';
 import { useMutation } from '@apollo/client';
 import { Form, Button } from 'semantic-ui-react';
 
 import { useForm } from '../util/hooks';
-import { GET_POSTS_QUERY } from '../util/graphql.queries';
+import { GET_POSTS_QUERY, CREATE_POST } from '../util/graphql.queries';
 
 const PostForm = () => {
     const { inputValues, inputValuesHandler, submitHandler } = useForm(
@@ -57,29 +56,5 @@ const PostForm = () => {
         </Form>
     );
 };
-
-const CREATE_POST = gql`
-    mutation createPost($body: String!) {
-        createPost(body: $body) {
-            id
-            body
-            username
-            createdAt
-            likes {
-                id
-                username
-                createdAt
-            }
-            likesCount
-            comments {
-                id
-                body
-                username
-                createdAt
-            }
-            commentsCount
-        }
-    }
-`;
 
 export default PostForm;
