@@ -30,16 +30,11 @@ const MenuBar = () => {
                 <Menu.Menu position='right'>
                     <Menu.Item
                         name={context.user.username}
-                        active
+                        disabled
                         // as={Link}
                         // to=`/${context.user.username}`
                     />
-                    <Menu.Item
-                        name='logout'
-                        onClick={context.logout}
-                        // as={Link}
-                        // to='/register'
-                    />
+                    <Menu.Item name='logout' onClick={context.logout} />
                 </Menu.Menu>
             ) : (
                 <Menu.Menu position='right'>
