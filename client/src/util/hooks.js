@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 // custom hook
-export const useForm = (cb, initialState = {}, errors) => {
+export const useForm = (cb, initialState = {}, errors = {}) => {
     const [inputValues, setInputValues] = useState(initialState);
 
     const inputValuesHandler = e => {

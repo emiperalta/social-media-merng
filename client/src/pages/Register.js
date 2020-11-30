@@ -22,17 +22,18 @@ const Register = props => {
     );
 
     const [addUser, { loading }] = useMutation(REGISTER_USER, {
-        update(proxy, result) {
+        update: (proxy, result) => {
             context.login(result.data.register);
             props.history.push('/login');
         },
-        onError(err) {
+        onError: err => {
             setErrors(err.graphQLErrors[0].extensions.exception.errors); //errors variable come from the server
         },
         variables: inputValues, // == variables: { username: inputValues.username, ... etc }
     });
 
     function registerUser() {
+        // through hoisting, the addUser() method will be available to use in the useForm() method
         addUser();
     }
 

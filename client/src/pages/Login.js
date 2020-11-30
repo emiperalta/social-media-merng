@@ -20,11 +20,11 @@ const Login = props => {
     );
 
     const [loginUser, { loading }] = useMutation(LOGIN_USER, {
-        update(proxy, result) {
+        update: (proxy, result) => {
             context.login(result.data.login);
             props.history.push('/');
         },
-        onError(err) {
+        onError: err => {
             setErrors(err.graphQLErrors[0].extensions.exception.errors); //errors variable come from the server
         },
         variables: inputValues, // == variables: { username: inputValues.username, ... etc }
