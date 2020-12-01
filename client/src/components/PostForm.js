@@ -20,7 +20,7 @@ const PostForm = () => {
                 query: GET_POSTS_QUERY,
             });
 
-            const newData = [...data.getPosts, result.data.createPost]; // new constant containing data value from getPosts query due of immutability of apollo
+            const newData = [result.data.createPost, ...data.getPosts]; // new constant containing data value from getPosts query due of immutability of apollo
 
             proxy.writeQuery({
                 query: GET_POSTS_QUERY,
@@ -45,7 +45,7 @@ const PostForm = () => {
     return (
         <>
             <Form onSubmit={submitHandler} className={loading ? 'loading' : ''}>
-                <h2>Create new post: </h2>
+                <h3>Create new post: </h3>
                 <Form.Field>
                     <Form.Input
                         name='body'
