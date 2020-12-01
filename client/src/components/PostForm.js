@@ -13,7 +13,7 @@ const PostForm = () => {
         }
     );
 
-    const [createPost, { loading }] = useMutation(CREATE_POST, {
+    const [createPost, { error, loading }] = useMutation(CREATE_POST, {
         update: (proxy, result) => {
             // working with cached data from the apollo client to update the post list when creating a new one
             const data = proxy.readQuery({
@@ -34,6 +34,7 @@ const PostForm = () => {
 
             inputValues.body = '';
         },
+        onError: err => err,
         variables: inputValues,
     });
 
@@ -42,18 +43,31 @@ const PostForm = () => {
     }
 
     return (
-        <Form onSubmit={submitHandler} className={loading ? 'loading' : ''}>
-            <h3>Create a post:</h3>
-            <Form.Field>
-                <Form.Input
-                    name='body'
-                    placeholder='"Hello world!"'
-                    onChange={inputValuesHandler}
-                    value={inputValues.body}
-                />
-                <Button content='Submit' type='submit' color='teal' />
-            </Form.Field>
-        </Form>
+        <>
+            <Form onSubmit={submitHandler} className={loading ? 'loading' : ''}>
+                <h2>Create new post: </h2>
+                <Form.Field>
+                    <Form.Input
+                        name='body'
+                        placeholder='"Hello world!"'
+                        onChange={inputValuesHandler}
+                        value={inputValues.body}
+                        error={error ? true : false}
+                    />
+                    <Button content='Submit' type='submit' color='green' />
+                </Form.Field>
+            </Form>
+            {error && (
+                <div
+                    className='ui error message'
+                    style={{ marginBottom: 15, fontSize: 10 }}
+                >
+                    <ul className='list'>
+                        <li>{error.graphQLErrors[0].message.substring(6)}</li>
+                    </ul>
+                </div>
+            )}
+        </>
     );
 };
 

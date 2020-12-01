@@ -14,6 +14,7 @@ export const useForm = (cb, initialState = {}, errors = {}) => {
 
     const submitHandler = e => {
         e.preventDefault();
+
         cb();
         if (!errors) {
             setInputValues(initialState); //when submit, clear the form fields
