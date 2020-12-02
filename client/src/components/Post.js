@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Button, Card, Image } from 'semantic-ui-react';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 
+import { AuthContext } from '../context/AuthContext';
+
 const Post = props => {
+    const context = useContext(AuthContext);
     const {
         id,
         body,
@@ -14,7 +17,8 @@ const Post = props => {
     } = props.post;
 
     const likePost = () => console.log('Liked post!');
-    const commentPost = () => console.log('Comment post!');
+
+    const deleteHandler = () => console.log('deleted');
 
     return (
         <Card fluid>
@@ -25,7 +29,7 @@ const Post = props => {
                     src='https://react.semantic-ui.com/images/avatar/large/molly.png'
                 />
                 <Card.Header>{username}</Card.Header>
-                <Card.Meta as={Link} to={`/posts/${id}`}>
+                <Card.Meta style={{ fontSize: 14 }}>
                     {moment(createdAt).fromNow(true)}
                 </Card.Meta>
                 <Card.Description>{body}</Card.Description>
@@ -55,8 +59,17 @@ const Post = props => {
                         content: commentsCount,
                     }}
                     labelPosition='left'
-                    onClick={commentPost}
+                    as={Link}
+                    to={`/posts/${id}`}
                 />
+                {context.user && context.user.username === username && (
+                    <Button
+                        size='tiny'
+                        icon='trash'
+                        floated='right'
+                        onClick={deleteHandler}
+                    />
+                )}
             </Card.Content>
         </Card>
     );

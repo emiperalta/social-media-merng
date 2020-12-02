@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { useQuery } from '@apollo/client';
-import { Grid, GridColumn, Transition } from 'semantic-ui-react';
+import { Grid, Transition } from 'semantic-ui-react';
 
 import { AuthContext } from '../context/AuthContext';
 
@@ -13,15 +13,15 @@ const Home = () => {
     const { loading, data: { getPosts } = {} } = useQuery(GET_POSTS_QUERY);
 
     return (
-        <Grid columns={3}>
+        <Grid stackable columns={2}>
             <Grid.Row className='page-title'>
-                <h1>Recent posts...</h1>
+                <h1>HOME</h1>
             </Grid.Row>
             <Grid.Row>
                 {context.user && (
-                    <GridColumn>
+                    <Grid.Column>
                         <PostForm />
-                    </GridColumn>
+                    </Grid.Column>
                 )}
                 {loading ? (
                     <h2>Loading posts</h2>
