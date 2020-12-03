@@ -32,6 +32,15 @@ const client = new ApolloClient({
                     },
                 },
             },
+            Post: {
+                fields: {
+                    likes: {
+                        merge(existing = [], incoming) {
+                            return incoming;
+                        },
+                    },
+                },
+            },
         },
     }),
     connectToDevTools: true,
