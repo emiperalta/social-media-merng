@@ -2,8 +2,8 @@ import React from 'react';
 import { useMutation } from '@apollo/client';
 import { Form, Button } from 'semantic-ui-react';
 
-import { useForm } from '../util/hooks';
-import { GET_POSTS, CREATE_POST } from '../util/graphql.queries';
+import { useForm } from '../../util/hooks';
+import { GET_POSTS, CREATE_POST } from '../../util/graphql.queries';
 
 const PostForm = () => {
     const { inputValues, inputValuesHandler, submitHandler } = useForm(

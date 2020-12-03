@@ -4,8 +4,8 @@ import { Grid, Transition } from 'semantic-ui-react';
 
 import { AuthContext } from '../context/AuthContext';
 
-import Post from '../components/Post';
-import PostForm from '../components/PostForm';
+import Post from '../components/Post/PostItem';
+import PostForm from '../components/Post/PostForm';
 import { GET_POSTS } from '../util/graphql.queries';
 
 const Home = () => {
