@@ -37,7 +37,7 @@ const Login = props => {
     return (
         <div className='form-container'>
             <div className='register-title'>
-                <h1>Login</h1>
+                <h1>LOGIN</h1>
             </div>
             <Form
                 onSubmit={submitHandler}

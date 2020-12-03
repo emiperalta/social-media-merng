@@ -3,7 +3,7 @@ import { useMutation } from '@apollo/client';
 import { Form, Button } from 'semantic-ui-react';
 
 import { useForm } from '../util/hooks';
-import { GET_POSTS_QUERY, CREATE_POST } from '../util/graphql.queries';
+import { GET_POSTS, CREATE_POST } from '../util/graphql.queries';
 
 const PostForm = () => {
     const { inputValues, inputValuesHandler, submitHandler } = useForm(
@@ -17,13 +17,13 @@ const PostForm = () => {
         update: (proxy, result) => {
             // working with cached data from the apollo client to update the post list when creating a new one
             const data = proxy.readQuery({
-                query: GET_POSTS_QUERY,
+                query: GET_POSTS,
             });
 
             const newData = [result.data.createPost, ...data.getPosts]; // new constant containing data value from getPosts query due of immutability of apollo
 
             proxy.writeQuery({
-                query: GET_POSTS_QUERY,
+                query: GET_POSTS,
                 data: {
                     ...data,
                     getPosts: {

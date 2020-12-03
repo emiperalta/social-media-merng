@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-export const GET_POSTS_QUERY = gql`
+export const GET_POSTS = gql`
     query {
         getPosts {
             id
@@ -77,6 +77,20 @@ export const CREATE_POST = gql`
                 createdAt
             }
             commentsCount
+        }
+    }
+`;
+
+export const LIKE_POST = gql`
+    mutation likePost($postId: ID!) {
+        likePost(postId: $postId) {
+            id
+            likes {
+                id
+                username
+                createdAt
+            }
+            likesCount
         }
     }
 `;

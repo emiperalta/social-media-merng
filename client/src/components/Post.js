@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { Button, Card, Image } from 'semantic-ui-react';
 import moment from 'moment';
-import { Link } from 'react-router-dom';
 
 import { AuthContext } from '../context/AuthContext';
+import LikePost from './LikePost';
 
 const Post = props => {
     const context = useContext(AuthContext);
@@ -12,11 +12,11 @@ const Post = props => {
         body,
         createdAt,
         username,
+        likes,
+        comments,
         likesCount,
         commentsCount,
     } = props.post;
-
-    const likePost = () => console.log('Liked post!');
 
     const deleteHandler = () => console.log('deleted');
 
@@ -24,43 +24,9 @@ const Post = props => {
         <Card fluid>
             <Card.Content>
                 <Image
-                    floated='right'
+                    floated='left'
                     size='mini'
                     src='https://react.semantic-ui.com/images/avatar/large/molly.png'
-                />
-                <Card.Header>{username}</Card.Header>
-                <Card.Meta style={{ fontSize: 14 }}>
-                    {moment(createdAt).fromNow(true)}
-                </Card.Meta>
-                <Card.Description>{body}</Card.Description>
-            </Card.Content>
-            <Card.Content extra>
-                <Button
-                    size='tiny'
-                    icon='heart'
-                    color='red'
-                    label={{
-                        as: 'a',
-                        basic: true,
-                        pointing: 'left',
-                        content: likesCount,
-                    }}
-                    labelPosition='right'
-                    onClick={likePost}
-                />
-                <Button
-                    size='tiny'
-                    icon='comment'
-                    color='instagram'
-                    label={{
-                        as: 'a',
-                        basic: true,
-                        pointing: 'right',
-                        content: commentsCount,
-                    }}
-                    labelPosition='left'
-                    as={Link}
-                    to={`/posts/${id}`}
                 />
                 {context.user && context.user.username === username && (
                     <Button
@@ -70,6 +36,29 @@ const Post = props => {
                         onClick={deleteHandler}
                     />
                 )}
+                <Card.Header>{username}</Card.Header>
+                <Card.Meta style={{ fontSize: 14 }}>
+                    {moment(createdAt).fromNow(true)}
+                </Card.Meta>
+                <Card.Description>{body}</Card.Description>
+            </Card.Content>
+            <Card.Content extra className='buttons'>
+                <LikePost
+                    user={context.user}
+                    post={{ id, likes, likesCount }}
+                />
+                <Button
+                    size='tiny'
+                    icon='comment'
+                    color='instagram'
+                    label={{
+                        basic: true,
+                        content: commentsCount,
+                    }}
+                    labelPosition='left'
+                    // as={Link}
+                    // to={`/posts/${id}`}
+                />
             </Card.Content>
         </Card>
     );

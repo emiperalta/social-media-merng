@@ -40,7 +40,7 @@ const Register = props => {
     return (
         <div className='form-container'>
             <div className='register-title'>
-                <h1>Register</h1>
+                <h1>REGISTER</h1>
             </div>
             <Form
                 onSubmit={submitHandler}
