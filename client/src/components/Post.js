@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Button, Card, Image } from 'semantic-ui-react';
 import moment from 'moment';
+import { Link } from 'react-router-dom';
 
 import { AuthContext } from '../context/AuthContext';
 import LikePost from './LikePost';
@@ -37,7 +38,11 @@ const Post = props => {
                     />
                 )}
                 <Card.Header>{username}</Card.Header>
-                <Card.Meta style={{ fontSize: 14 }}>
+                <Card.Meta
+                    as={Link}
+                    to={`/posts/${id}`}
+                    style={{ fontSize: 14 }}
+                >
                     {moment(createdAt).fromNow(true)}
                 </Card.Meta>
                 <Card.Description>{body}</Card.Description>

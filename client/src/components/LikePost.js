@@ -16,6 +16,7 @@ const LikePost = ({ user, post: { id, likes, likesCount } }) => {
 
     const [likePost] = useMutation(LIKE_POST, {
         variables: { postId: id },
+        onError: err => {},
     });
 
     const likeButton = user ? (
@@ -29,6 +30,7 @@ const LikePost = ({ user, post: { id, likes, likesCount } }) => {
             </Button>
         )
     ) : (
+        // if there is no user logged in, when he click on 'like' he will be redirected to login page
         <Button icon color='red' size='tiny' basic as={Link} to='/login'>
             <Icon name='heart' />
         </Button>
