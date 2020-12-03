@@ -4,18 +4,18 @@ import moment from 'moment';
 import { Link } from 'react-router-dom';
 
 import { AuthContext } from '../../context/AuthContext';
-import LikePost from './LikePost';
-import DeletePost from './DeletePost';
+import LikeButton from './actions/LikePost';
+import DeletePost from './actions/DeletePost';
 
 const Post = props => {
     const context = useContext(AuthContext);
+
     const {
         id,
         body,
         createdAt,
         username,
         likes,
-        comments,
         likesCount,
         commentsCount,
     } = props.post;
@@ -37,12 +37,12 @@ const Post = props => {
                     to={`/posts/${id}`}
                     style={{ fontSize: 14 }}
                 >
-                    {moment(createdAt).fromNow(true)}
+                    {moment(createdAt).fromNow()}
                 </Card.Meta>
                 <Card.Description>{body}</Card.Description>
             </Card.Content>
             <Card.Content extra className='buttons'>
-                <LikePost
+                <LikeButton
                     user={context.user}
                     post={{ id, likes, likesCount }}
                 />
@@ -55,8 +55,8 @@ const Post = props => {
                         content: commentsCount,
                     }}
                     labelPosition='left'
-                    // as={Link}
-                    // to={`/posts/${id}`}
+                    as={Link}
+                    to={`/posts/${id}`}
                 />
             </Card.Content>
         </Card>

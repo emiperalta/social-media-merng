@@ -5,7 +5,10 @@ import { Card, Grid, Image, Button } from 'semantic-ui-react';
 
 import { GET_POST_BY_ID } from '../../util/graphql.queries';
 import { AuthContext } from '../../context/AuthContext';
-import LikeButton from './LikePost';
+import LikeButton from './actions/LikePost';
+import DeletePost from './actions/DeletePost';
+import CommentList from './CommentList';
+import CommentForm from './CommentForm';
 
 const PostDetail = props => {
     const context = useContext(AuthContext);
@@ -15,6 +18,8 @@ const PostDetail = props => {
         variables: { postId: postId },
         onError: err => {},
     });
+
+    const deletePostCallback = () => props.history.push('/');
 
     let postMarkup;
     if (!getPost) postMarkup = <p>Loading post...</p>;
@@ -42,9 +47,16 @@ const PostDetail = props => {
                     <Grid.Column width={12}>
                         <Card fluid>
                             <Card.Content>
+                                {context.user &&
+                                    context.user.username === username && (
+                                        <DeletePost
+                                            postId={id}
+                                            callback={deletePostCallback}
+                                        />
+                                    )}
                                 <Card.Header>{username}</Card.Header>
                                 <Card.Meta>
-                                    {moment(createdAt).fromNow(true)}
+                                    {moment(createdAt).fromNow()}
                                 </Card.Meta>
                                 <Card.Description>{body}</Card.Description>
                             </Card.Content>
@@ -62,10 +74,21 @@ const PostDetail = props => {
                                         content: commentsCount,
                                     }}
                                     labelPosition='left'
-                                    onClick={() => console.log('Commented')}
+                                    onClick={() =>
+                                        props.history.push(`/posts/${id}`)
+                                    }
                                 />
                             </Card.Content>
                         </Card>
+                        {context.user && <CommentForm postId={id} />}
+                        {comments.map(comment => (
+                            <CommentList
+                                key={comment.id}
+                                comment={comment}
+                                user={context.user}
+                                postId={id}
+                            />
+                        ))}
                     </Grid.Column>
                 </Grid.Row>
             </Grid>
