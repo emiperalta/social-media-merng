@@ -39,7 +39,9 @@ const Post = props => {
                 >
                     {moment(createdAt).fromNow()}
                 </Card.Meta>
-                <Card.Description>{body}</Card.Description>
+                <Card.Description style={{ marginTop: 20 }}>
+                    {body}
+                </Card.Description>
             </Card.Content>
             <Card.Content extra className='buttons'>
                 <LikeButton

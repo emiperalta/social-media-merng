@@ -1,6 +1,6 @@
 import React from 'react';
 import { useMutation } from '@apollo/client';
-import { Form, Button } from 'semantic-ui-react';
+import { Form, Button, Popup } from 'semantic-ui-react';
 
 import { useForm } from '../../util/hooks';
 import { GET_POSTS, CREATE_POST } from '../../util/graphql.queries';
@@ -47,12 +47,19 @@ const PostForm = () => {
             <Form onSubmit={submitHandler} className={loading ? 'loading' : ''}>
                 <h3>Create new post: </h3>
                 <Form.Field>
-                    <Form.Input
-                        name='body'
-                        placeholder='"Hello world!"'
-                        onChange={inputValuesHandler}
-                        value={inputValues.body}
-                        error={error ? true : false}
+                    <Popup
+                        content='Post text'
+                        size='mini'
+                        position='bottom right'
+                        trigger={
+                            <Form.Input
+                                name='body'
+                                placeholder='Hello world!'
+                                onChange={inputValuesHandler}
+                                value={inputValues.body}
+                                error={error ? true : false}
+                            />
+                        }
                     />
                     <Button content='Submit' type='submit' color='green' />
                 </Form.Field>

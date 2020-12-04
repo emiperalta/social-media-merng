@@ -36,78 +36,96 @@ const PostDetail = props => {
         } = getPost;
 
         postMarkup = (
-            <Grid>
-                <Grid.Row>
-                    <Grid.Column width={3}>
-                        <Image
-                            src='https://react.semantic-ui.com/images/avatar/large/molly.png'
-                            size='large'
-                        />
-                    </Grid.Column>
-                    <Grid.Column width={12}>
-                        <Card fluid>
-                            <Card.Content>
-                                <Image
-                                    floated='left'
-                                    size='mini'
-                                    className='resp-image'
-                                    src='https://react.semantic-ui.com/images/avatar/large/molly.png'
-                                />
-                                {context.user &&
-                                    context.user.username === username && (
-                                        <DeletePost
-                                            postId={id}
-                                            callback={deletePostCallback}
-                                        />
-                                    )}
-                                <Card.Header>{username}</Card.Header>
-                                <Card.Meta style={{ fontSize: 14 }}>
-                                    {moment(createdAt).fromNow()}
-                                </Card.Meta>
-                                <br />
-                                <Card.Description>{body}</Card.Description>
-                            </Card.Content>
-                            <Card.Content extra className='buttons'>
-                                <LikeButton
-                                    user={context.user}
-                                    post={{ id, likes, likesCount }}
-                                />
-                                <Popup
-                                    content='Comment on post'
-                                    size='mini'
-                                    position='right center'
-                                    trigger={
-                                        <Button
-                                            size='tiny'
-                                            icon='comment'
-                                            color='instagram'
-                                            label={{
-                                                basic: true,
-                                                content: commentsCount,
-                                            }}
-                                            labelPosition='left'
-                                            onClick={() =>
-                                                props.history.push(
-                                                    `/posts/${id}`
-                                                )
-                                            }
-                                        />
-                                    }
-                                />
-                            </Card.Content>
-                        </Card>
-                        {context.user && <CommentForm postId={id} />}
-                        {comments.map(comment => (
-                            <CommentList
-                                key={comment.id}
-                                comment={comment}
-                                user={context.user}
-                                postId={id}
+            <>
+                <div style={{ textAlign: 'center', margin: 15 }}>
+                    <Popup
+                        content='Go back to home'
+                        size='mini'
+                        position='left center'
+                        trigger={
+                            <Button
+                                basic
+                                circular
+                                size='huge'
+                                icon='arrow left'
+                                onClick={() => props.history.push('/')}
                             />
-                        ))}
-                    </Grid.Column>
-                </Grid.Row>
-            </Grid>
+                        }
+                    />
+                </div>
+                <Grid>
+                    <Grid.Row>
+                        <Grid.Column width={3}>
+                            <Image
+                                src='https://react.semantic-ui.com/images/avatar/large/molly.png'
+                                size='large'
+                            />
+                        </Grid.Column>
+                        <Grid.Column width={12}>
+                            <Card fluid>
+                                <Card.Content>
+                                    <Image
+                                        floated='left'
+                                        size='mini'
+                                        className='resp-image'
+                                        src='https://react.semantic-ui.com/images/avatar/large/molly.png'
+                                    />
+                                    {context.user &&
+                                        context.user.username === username && (
+                                            <DeletePost
+                                                postId={id}
+                                                callback={deletePostCallback}
+                                            />
+                                        )}
+                                    <Card.Header>{username}</Card.Header>
+                                    <Card.Meta style={{ fontSize: 14 }}>
+                                        {moment(createdAt).fromNow()}
+                                    </Card.Meta>
+                                    <br />
+                                    <Card.Description>{body}</Card.Description>
+                                </Card.Content>
+                                <Card.Content extra className='buttons'>
+                                    <LikeButton
+                                        user={context.user}
+                                        post={{ id, likes, likesCount }}
+                                    />
+                                    <Popup
+                                        content='Comment on post'
+                                        size='mini'
+                                        position='right center'
+                                        trigger={
+                                            <Button
+                                                size='tiny'
+                                                icon='comment'
+                                                color='instagram'
+                                                label={{
+                                                    basic: true,
+                                                    content: commentsCount,
+                                                }}
+                                                labelPosition='left'
+                                                onClick={() =>
+                                                    props.history.push(
+                                                        `/posts/${id}`
+                                                    )
+                                                }
+                                            />
+                                        }
+                                    />
+                                </Card.Content>
+                            </Card>
+                            {context.user && <CommentForm postId={id} />}
+                            {comments.map(comment => (
+                                <CommentList
+                                    key={comment.id}
+                                    comment={comment}
+                                    user={context.user}
+                                    postId={id}
+                                />
+                            ))}
+                        </Grid.Column>
+                    </Grid.Row>
+                </Grid>
+            </>
         );
     }
 

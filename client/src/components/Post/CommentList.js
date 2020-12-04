@@ -19,6 +19,7 @@ const CommentList = props => {
                 <Card.Meta style={{ fontSize: 14 }}>
                     {moment(props.comment.createdAt).fromNow()}
                 </Card.Meta>
+                <br />
                 <Card.Description>{props.comment.body}</Card.Description>
             </Card.Content>
         </Card>

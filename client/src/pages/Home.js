@@ -4,7 +4,7 @@ import { Grid, Header, Transition } from 'semantic-ui-react';
 
 import { AuthContext } from '../context/AuthContext';
 
-import Post from '../components/Post/PostItem';
+import PostItem from '../components/Post/PostItem';
 import PostForm from '../components/Post/PostForm';
 import { GET_POSTS } from '../util/graphql.queries';
 
@@ -17,7 +17,7 @@ const Home = () => {
             <Header
                 size='huge'
                 textAlign='center'
-                style={{ marginBottom: '3rem' }}
+                style={{ marginBottom: '2rem' }}
             >
                 HOME
             </Header>
@@ -38,7 +38,7 @@ const Home = () => {
                                         key={post.id}
                                         style={{ marginBottom: 20 }}
                                     >
-                                        <Post post={post} />
+                                        <PostItem post={post} />
                                     </Grid.Column>
                                 ))}
                         </Transition.Group>
