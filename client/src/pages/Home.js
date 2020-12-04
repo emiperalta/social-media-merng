@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { useQuery } from '@apollo/client';
-import { Grid, Transition } from 'semantic-ui-react';
+import { Grid, Header, Transition } from 'semantic-ui-react';
 
 import { AuthContext } from '../context/AuthContext';
 
@@ -14,9 +14,13 @@ const Home = () => {
 
     return (
         <>
-            <div className='page-title'>
-                <h1>HOME</h1>
-            </div>
+            <Header
+                size='huge'
+                textAlign='center'
+                style={{ marginBottom: '3rem' }}
+            >
+                HOME
+            </Header>
             <Grid stackable columns={2}>
                 <Grid.Row>
                     {context.user && (

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import moment from 'moment';
 import { useQuery } from '@apollo/client';
-import { Card, Grid, Image, Button } from 'semantic-ui-react';
+import { Card, Grid, Image, Button, Popup } from 'semantic-ui-react';
 
 import { GET_POST_BY_ID } from '../../util/graphql.queries';
 import { AuthContext } from '../../context/AuthContext';
@@ -47,6 +47,12 @@ const PostDetail = props => {
                     <Grid.Column width={12}>
                         <Card fluid>
                             <Card.Content>
+                                <Image
+                                    floated='left'
+                                    size='mini'
+                                    className='resp-image'
+                                    src='https://react.semantic-ui.com/images/avatar/large/molly.png'
+                                />
                                 {context.user &&
                                     context.user.username === username && (
                                         <DeletePost
@@ -55,9 +61,10 @@ const PostDetail = props => {
                                         />
                                     )}
                                 <Card.Header>{username}</Card.Header>
-                                <Card.Meta>
+                                <Card.Meta style={{ fontSize: 14 }}>
                                     {moment(createdAt).fromNow()}
                                 </Card.Meta>
+                                <br />
                                 <Card.Description>{body}</Card.Description>
                             </Card.Content>
                             <Card.Content extra className='buttons'>
@@ -65,17 +72,26 @@ const PostDetail = props => {
                                     user={context.user}
                                     post={{ id, likes, likesCount }}
                                 />
-                                <Button
-                                    size='tiny'
-                                    icon='comment'
-                                    color='instagram'
-                                    label={{
-                                        basic: true,
-                                        content: commentsCount,
-                                    }}
-                                    labelPosition='left'
-                                    onClick={() =>
-                                        props.history.push(`/posts/${id}`)
+                                <Popup
+                                    content='Comment on post'
+                                    size='mini'
+                                    position='right center'
+                                    trigger={
+                                        <Button
+                                            size='tiny'
+                                            icon='comment'
+                                            color='instagram'
+                                            label={{
+                                                basic: true,
+                                                content: commentsCount,
+                                            }}
+                                            labelPosition='left'
+                                            onClick={() =>
+                                                props.history.push(
+                                                    `/posts/${id}`
+                                                )
+                                            }
+                                        />
                                     }
                                 />
                             </Card.Content>

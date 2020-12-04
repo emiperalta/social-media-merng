@@ -16,7 +16,7 @@ const CommentList = props => {
                         />
                     )}
                 <Card.Header>{props.comment.username}</Card.Header>
-                <Card.Meta>
+                <Card.Meta style={{ fontSize: 14 }}>
                     {moment(props.comment.createdAt).fromNow()}
                 </Card.Meta>
                 <Card.Description>{props.comment.body}</Card.Description>

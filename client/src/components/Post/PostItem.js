@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Button, Card, Image } from 'semantic-ui-react';
+import { Button, Card, Image, Popup } from 'semantic-ui-react';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 
@@ -46,17 +46,24 @@ const Post = props => {
                     user={context.user}
                     post={{ id, likes, likesCount }}
                 />
-                <Button
-                    size='tiny'
-                    icon='comment'
-                    color='instagram'
-                    label={{
-                        basic: true,
-                        content: commentsCount,
-                    }}
-                    labelPosition='left'
-                    as={Link}
-                    to={`/posts/${id}`}
+                <Popup
+                    content='Comment on post'
+                    position='right center'
+                    size='mini'
+                    trigger={
+                        <Button
+                            size='tiny'
+                            icon='comment'
+                            color='instagram'
+                            label={{
+                                basic: true,
+                                content: commentsCount,
+                            }}
+                            labelPosition='left'
+                            as={Link}
+                            to={`/posts/${id}`}
+                        />
+                    }
                 />
             </Card.Content>
         </Card>
